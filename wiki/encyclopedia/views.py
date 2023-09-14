@@ -9,9 +9,9 @@ from . import util
 
 def convert_html(title):
     content = util.get_entry(title)
-    markdown = Markdown()
+    markdown =Markdown()
     if content == None:
-        return "No such entry"
+        return None
     else:
         return markdown.convert(content)
 
@@ -23,14 +23,27 @@ def index(request):
 
 
 def entry(request, title):
-    html_contet = convert_html(title)
-    if html_contet == None:
+    html_content = convert_html(title)
+    if html_content == None:
         return render(request, "encyclopedia/error.html", {
-            "message": "this entry not exist"
+            "message": "this entry does not exist"
         })
     else:
         return render(request, "encyclopedia/entry.html", {
             "title": title ,
-            "content": html_contet ,
-            
+            "content": html_content 
         })
+    
+
+def search(request):
+    if request.method=="POST":
+        search=request.POST['q']
+        html_content = convert_html(search)
+        if html_content is not None:
+            return render(request, "encyclopedia/entry.html", {
+            "title": search ,
+            "content": html_content 
+        })
+
+        
+
