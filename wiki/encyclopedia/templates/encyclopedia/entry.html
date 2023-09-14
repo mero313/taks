@@ -1,16 +1,11 @@
 {% extends "encyclopedia/layout.html" %}
 
 {% block title %}
-    Entry
+    {{ title }}
 {% endblock %}
 
 {% block body %}
-    <h1>All Pages</h1>
-
-    <ul>
-        {% for x in entries %}
-            <li>{{ x }}</li>
-        {% endfor %}
-    </ul>
+    
+{{ content }}
 
 {% endblock %}
